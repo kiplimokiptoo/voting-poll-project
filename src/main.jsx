@@ -13,7 +13,7 @@ const Register = lazy(() => import("./pages/Register.jsx"));
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/voting-poll-project">
         <Suspense
           fallback={
             <main className='flex min-h-screen items-center justify-center bg-slate-950 text-slate-100'>
