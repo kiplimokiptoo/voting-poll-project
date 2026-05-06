@@ -1,6 +1,6 @@
 # Voting Poll App
 
-A responsive React mini-project built with Vite and Tailwind CSS v4. Users can add poll options, vote once, and see live results all persisted via JSON Server.
+A responsive React application built with Vite and Tailwind CSS. Users can register, log in, add poll options, vote once per account, and see live results — all persisted via a JSON Server backend and Firebase Firestore.
 
 ---
 
@@ -14,15 +14,23 @@ A responsive React mini-project built with Vite and Tailwind CSS v4. Users can a
 
 ---
 
+## Live Demo
+
+[https://keithkamau.github.io/voting-poll-project/](https://keithkamau.github.io/voting-poll-project/)
+
+---
+
 ## Features
 
-- Add, vote on, and delete poll options
-- Single vote per session — vote buttons disable after voting
+- User authentication via Firebase (email/password and Google Sign-In)
+- Add poll options
+- Vote once per user account — tracked per user via Firebase Firestore
 - Live vote counts and percentage progress bars
 - Leading option highlighted
-- Reset all votes and options
-- Data persists via JSON Server
+- Reset all votes
+- Data persists via JSON Server backend hosted on Render
 - Responsive on mobile and desktop
+- Auto-deployed to GitHub Pages via GitHub Actions
 
 ---
 
@@ -30,75 +38,86 @@ A responsive React mini-project built with Vite and Tailwind CSS v4. Users can a
 
 - React 19
 - Vite
-- Tailwind CSS v4 via `@tailwindcss/vite`
+- Tailwind CSS
+- Firebase Authentication
+- Firebase Firestore
+- JSON Server (hosted on Render)
+- React Router DOM
+- GitHub Actions (CI/CD)
 
 ---
 
 ## Project Structure
 
-```
+
 src/
 ├── components/
+│   ├── auth/
+│   │   ├── login/
+│   │   │   └── index.jsx
+│   │   └── register/
+│   │       └── index.jsx
 │   ├── PollForm.jsx
 │   ├── PollList.jsx
-│   └── PollOption.jsx
+│   ├── PollOption.jsx
+│   └── ProtectedRoute.jsx
+├── contexts/
+│   └── authContexts/
+│       └── index.jsx
+├── firebase/
+│   ├── auth.js
+│   └── firebaseConfig.js
 ├── App.jsx
 ├── App.css
 ├── index.css
-└── main.jsx
-```
+├── main.jsx
+└── router.jsx
 
 ---
 
 ## Setup
 
-1. Clone the repository and navigate into it
+This project uses Firebase and a hosted JSON Server backend. To run it locally you will need your own Firebase project.
 
-   ```bash
-   git clone <your-repo-url>
+1. Clone the repository
+
+```bash
+   git clone https://github.com/keithkamau/voting-poll-project.git
    cd voting-poll-project
-   ```
+```
 
-2. Install dependencies
+2.Install dependencies
 
-   ```bash
+```bash
    npm install
-   ```
+```
 
-3. Start the development server
+3.Create a Firebase project at [firebase.google.com](https://firebase.google.com), enable Authentication (Email/Password and Google) and Firestore, then replace the config in `src/firebase/firebaseConfig.js` with your own credentials.
 
-   ```bash
+4.Start the development server
+
+```bash
    npm run dev
-   ```
+```
 
-4. Open `http://localhost:5173` in your browser
+5.Open `http://localhost:5173` in your browser
+
+> Poll data is fetched from a live JSON Server backend hosted on Render — no local backend setup needed.
+
+1. Open `http://localhost:5173` in your browser
 
 ---
 
 ## Build for Production
 
-```bash
+
+bash
 npm run build
-npm run preview
-```
+      npm run preview
 
 ---
 
-## Tailwind CSS v4 Config
+## Deployment
 
-`vite.config.js`
-```js
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-})
-```
-
-`src/index.css`
-```css
-@import "tailwindcss";
-```
----
+The app is automatically deployed with Github actions on every push to `main` via GitHub Actions. The JSON Server backend is hosted on Render.
+EOF
